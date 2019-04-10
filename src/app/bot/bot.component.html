@@ -1,0 +1,15 @@
+<h2>Bots</h2>
+<ng-container *ngFor="let bot of (bots | async)">
+    <h5>
+        {{ bot.data.exchange }} - {{ bot.data.pair }} {{ bot.data.botDate | date: 'MMM d, y, h:mm:ss a' }}
+     </h5>
+    <div class="btn-group">
+        <a class="btn btn-secondary text-white" [routerLink]="['/roundTrips/' + bot.id]"> Trips </a>
+           <a class="btn btn-secondary text-white" [routerLink]="['/tradeMessages/' + bot.id]" >Trades</a>
+           <a class="btn btn-secondary text-white" [routerLink]="['bot-detail/' + bot.id]">Bot</a>
+       </div>
+       <br />
+    
+     
+
+</ng-container>

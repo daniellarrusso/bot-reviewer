@@ -1,0 +1,92 @@
+<app-card *ngIf="bot">
+  <div class="header">
+    <div class="float-right btn-group">
+      <a class="btn btn-primary text-white" [routerLink]="['/roundTrips/' + botId]"> RoundTrips </a>
+      <a class="btn btn-primary text-white" [routerLink]="['/tradeMessages/' + botId]">Trades</a>
+    </div>
+    {{ bot.exchange }} - {{ bot.pair }} {{ bot.botDate | date: 'MMM d, y, h:mm:ss a' }}
+
+    <div style="top:-10px; left:0;" class="position-absolute badge badge-pill {{ bot.notificationEvent?.stratNotification.indicators.prevAction === 'buy'? 'badge-success' : 'badge-danger' }}">
+      Last Action: {{ bot.notificationEvent?.stratNotification.indicators.prevAction }}
+    </div> <br />
+    <div class="badge badge-pill badge-light">
+      Duration: {{ bot.notificationEvent?.roundtripUpdate?.duration }}
+    </div>
+    <div class="badge badge-pill badge-light">
+      Profit: {{ bot.notificationEvent?.roundtripUpdate?.profitLoss | number:'1.8-8' }}
+    </div>
+    <div class="badge badge-pill badge-light">
+      Lastest Buy: {{ bot.notificationEvent?.lastBuy | number:'1.8-8' }}
+    </div>
+    <div class="badge badge-pill badge-light">
+      Latest Sell: {{ bot.notificationEvent?.lastSell | number:'1.8-8' }}
+    </div>
+    <div class="badge badge-pill badge-light">
+      Market: {{ bot.market | number:'1.2-2' }}
+    </div>
+    <div class="badge badge-pill badge-light">
+      Relative Profit: {{ bot.relativeProfit | number:'1.2-2' }}
+    </div>
+    <div class="badge badge-pill badge-light">
+      Profit since buy: {{ bot.profitSinceBuy }}
+    </div>
+
+  </div>
+  <div class="body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm">
+          <app-card>
+            <div class="header">
+              Strategy Settings
+            </div>
+            <div class="body">
+              <ul class="list-group">
+                <li *ngFor="let item of bot.notificationEvent?.stratNotification?.strategy | keyvalue" class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                  {{item.key | fieldNames | titlecase }} <span class="p-2" class="badge badge-pill badge-light">
+                    {{item.value}} </span>
+                </li>
+              </ul>
+            </div>
+          </app-card>
+        </div>
+        <div class="col-sm">
+          <app-card>
+            <div class="header">
+              Candle
+            </div>
+            <div class="body">
+              <ul class="list-group">
+                <li *ngFor="let item of bot.notificationEvent?.stratNotification?.candle | keyvalue" class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                  {{item.key | fieldNames | titlecase }} <span class="p-2" class="badge badge-pill badge-light">
+                    {{item.value}} </span>
+                </li>
+              </ul>
+            </div>
+          </app-card>
+        </div>
+        <div class="col-sm">
+          <app-card>
+            <div class="header">
+              Indicators
+            </div>
+            <div class="body">
+              <ul class="list-group">
+                <li *ngFor="let item of bot?.notificationEvent?.stratNotification?.indicators | keyvalue" class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                  {{item.key | fieldNames | titlecase }} <span class="p-2" class="badge badge-pill badge-light">
+                    {{item.value}} </span>
+                </li>
+              </ul>
+
+            </div>
+          </app-card>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+</app-card>

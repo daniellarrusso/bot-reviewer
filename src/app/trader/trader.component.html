@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-sm-12 col-md-6 col-lg-4">
+    <app-card>
+        <h5 class="header">All Trades</h5>
+        <div  class="body">
+          <div *ngFor="let trader of traders | async">
+              <div class="badge badge-dark">{{ (trader.messages | async)?.length }}</div>
+                Trading {{ trader.data.pair }} on {{ trader.data.exchange }} 
+                <br />Last action: {{ trader.data.lastAction?.action }} 
+                <br /> Current State: RSI {{ trader.data.lastAction?.rsi }} EMA: {{ trader.data.lastAction?.ema }}
+                <br /> <code>{{ trader.data.lastAction?.settings | json }}</code>
+                <br /><code>state: {{ trader.data.active }}</code> 
+                <br />
+                <a [routerLink]="['/trader/' + trader.id]" routerLinkActive="router-link-active" >Trade Detail</a>
+                <br />
+                <button (click)="setTraderId(trader.id)" class="btn btn-primary float-right">View Messages</button>
+          </div>
+        </div>
+    </app-card>
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-8">
+    <app-card>
+      <h5 class="header">Trades</h5>
+      <div class="body">
+        <app-trader-messages [tradeId]="traderId"></app-trader-messages>
+      </div>
+    </app-card>
+  </div>
+</div>
+
+      <!-- <ng-container *ngFor="let m of trader.messages | async; let i = index">
+        <li  *ngIf="i < 2">
+            {{ m.message.action }}
+        </li>
+      </ng-container> -->
+      <!-- <li *ngFor="let key of objectKeys(trader.data.messages)">{{ trader.data.messages[key].message.adviceId }}</li> -->
+  

@@ -1,0 +1,25 @@
+<h5 *ngIf="botId" >Trade Messages</h5>
+
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th>Action</th>
+      <th>Amount</th>
+      <th>Cost</th>
+      <th>Fee %</th>
+      <th>Effective Price</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let mess of (tradeMessages | async)">
+      <td>{{ mess.message.action }}</td>
+      <td>{{ mess.message.amount | number:'1.8-8'  }}</td>
+      <td>{{ mess.message.cost | number:'1.8-8'  }}</td>
+      <td>{{ mess.message.feePercent }}</td>
+      <td>{{ mess.message.effectivePrice | number:'1.8-8' }}</td>
+      <td>{{ mess.message.date | date: 'MMM d, y, h:mm:ss a' }}</td>
+    </tr>
+  </tbody>
+</table>
+<button class="btn btn-primary" *ngIf="botId" (click)="goBack()">Back</button>

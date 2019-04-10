@@ -1,0 +1,33 @@
+
+<table class="table table-bordered">
+  <thead class="thead-secondary">
+    <tr>
+        <th>
+            Entry Date
+          </th>
+          <th>
+            Exit Date
+          </th>
+          <th>
+            Duration
+          </th>
+          <th>
+            PnL %
+          </th>
+          <th>
+            Profit %
+          </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rt of roundTrips | async">
+      <td>{{ rt.entryDate }}</td>
+      <td>{{ rt.exitDate }}</td>
+      <td>{{ rt.duration }}</td>
+      <td>{{ rt.profitLoss }}</td>
+      <td>{{ rt.profit }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<button (click)="goBack()" class="btn btn-primary">Back</button>
